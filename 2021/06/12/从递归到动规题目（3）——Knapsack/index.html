@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>从递归到动态规划_Problem3 | linrui</title><meta name="keywords" content="动态规划"><meta name="author" content="Xia Linrui"><meta name="copyright" content="Xia Linrui"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="从递归到动态规划Problem_3Knapsack题目描述给定两个长度都为N的数组weights和values，weights[i]和values[i]分别代表 i号物品的重量和价值。给定一个正数bag，表示一个载重bag的袋子，装的物品不能超过这个重量。请返回能装下的最大价值。 算法分析暴力递归这个道题属于从左往右的尝试模型，遇到每一个位置，只要考虑选还是不选就可以了。定义出递归含义应该不难：p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从递归到动态规划_Problem3">
+<meta property="og:url" content="https://xialinrui.github.io/2021/06/12/%E4%BB%8E%E9%80%92%E5%BD%92%E5%88%B0%E5%8A%A8%E8%A7%84%E9%A2%98%E7%9B%AE%EF%BC%883%EF%BC%89%E2%80%94%E2%80%94Knapsack/index.html">
+<meta property="og:site_name" content="linrui">
+<meta property="og:description" content="从递归到动态规划Problem_3Knapsack题目描述给定两个长度都为N的数组weights和values，weights[i]和values[i]分别代表 i号物品的重量和价值。给定一个正数bag，表示一个载重bag的袋子，装的物品不能超过这个重量。请返回能装下的最大价值。 算法分析暴力递归这个道题属于从左往右的尝试模型，遇到每一个位置，只要考虑选还是不选就可以了。定义出递归含义应该不难：p">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xialinrui.github.io/img/%E7%AE%97%E6%B3%95/%E4%BD%93%E7%B3%BB%E5%AD%A6%E4%B9%A0/%E5%B0%81%E9%9D%A2/dp/003.png">
+<meta property="article:published_time" content="2021-06-11T16:32:22.000Z">
+<meta property="article:modified_time" content="2022-07-09T10:38:10.323Z">
+<meta property="article:author" content="Xia Linrui">
+<meta property="article:tag" content="动态规划">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xialinrui.github.io/img/%E7%AE%97%E6%B3%95/%E4%BD%93%E7%B3%BB%E5%AD%A6%E4%B9%A0/%E5%B0%81%E9%9D%A2/dp/003.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://xialinrui.github.io/2021/06/12/%E4%BB%8E%E9%80%92%E5%BD%92%E5%88%B0%E5%8A%A8%E8%A7%84%E9%A2%98%E7%9B%AE%EF%BC%883%EF%BC%89%E2%80%94%E2%80%94Knapsack/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '从递归到动态规划_Problem3',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-07-09 18:38:10'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./img/%E5%A4%B4%E5%83%8F.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 我的主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/./img/%E7%AE%97%E6%B3%95/%E4%BD%93%E7%B3%BB%E5%AD%A6%E4%B9%A0/%E5%B0%81%E9%9D%A2/dp/003.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">linrui</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 我的主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">从递归到动态规划_Problem3</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-06-11T16:32:22.000Z" title="发表于 2021-06-12 00:32:22">2021-06-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-07-09T10:38:10.323Z" title="更新于 2022-07-09 18:38:10">2022-07-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="从递归到动态规划_Problem3"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="从递归到动态规划Problem-3"><a href="#从递归到动态规划Problem-3" class="headerlink" title="从递归到动态规划Problem_3"></a>从递归到动态规划Problem_3</h1><h2 id="Knapsack"><a href="#Knapsack" class="headerlink" title="Knapsack"></a>Knapsack</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给定两个长度都为<code>N</code>的数组<code>weights</code>和<code>values</code>，<code>weights[i]</code>和<code>values[i]</code>分别代表<code> i</code>号物品的重量和价值。给定一个正数<code>bag</code>，表示一个载重<code>bag</code>的袋子，装的物品不能超过这个重量。请返回能装下的最大价值。</p>
+<h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><h4 id="暴力递归"><a href="#暴力递归" class="headerlink" title="暴力递归"></a>暴力递归</h4><p>这个道题属于从左往右的尝试模型，遇到每一个位置，只要考虑选还是不选就可以了。定义出递归含义应该不难：<code>process1(int[] w, int[] v, int index, int rest)</code>表示：<code>[0...index-1]</code>决定已经做好，现在剩余容量是<code>rest</code>，请做出从<code>[index...]</code>决策，让价值最大。</p>
+<p>其实这道题尝试的<code>basecase</code>的写法很值得探讨。为了方便起见，先放代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//maxValue1是暴力递归的方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">maxValue1</span><span class="params">(<span class="type">int</span>[] w, <span class="type">int</span>[] v, <span class="type">int</span> bag)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (w == <span class="literal">null</span> || v == <span class="literal">null</span> || bag &lt; <span class="number">0</span> || w.length == <span class="number">0</span> || v.length == <span class="number">0</span> || w.length != v.length) &#123;</span><br><span class="line">			<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> process1(w, v, <span class="number">0</span>, bag);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// [0...index-1]决定已经做好，现在剩余容量是rest，请做出从[index...]决策，让价值最大</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">process1</span><span class="params">(<span class="type">int</span>[] w, <span class="type">int</span>[] v, <span class="type">int</span> index, <span class="type">int</span> rest)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (rest &lt; <span class="number">0</span>) &#123;<span class="comment">// 上游的决策导致决策失败</span></span><br><span class="line">			<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (index == w.length) &#123;<span class="comment">// 之前决策做完了,直接返回</span></span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="type">int</span> <span class="variable">p1</span> <span class="operator">=</span> process1(w, v, index + <span class="number">1</span>, rest);<span class="comment">// 不要当前的物品</span></span><br><span class="line">		<span class="type">int</span> <span class="variable">p2</span> <span class="operator">=</span> process1(w, v, index + <span class="number">1</span>, rest - w[index]);<span class="comment">// 要当前的物品</span></span><br><span class="line">		p2 = p2 == -<span class="number">1</span> ? <span class="number">0</span> : p2 + v[index];<span class="comment">// 如果下游告诉我，我这边的决策已经失败了，我就没必要有这种选择了。</span></span><br><span class="line">		<span class="keyword">return</span> Math.max(p1, p2);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在来深入分析一下这个<code>basecase</code>。</p>
+<ol>
+<li>第一个<code>basecase</code>判断<code>rest</code>是否小于零。根据题目要求，如果<code>rest &lt; 0</code>，就不能装了，不是说装进<code>0</code>件货物，而是告诉我们，之前的决策已经失败了，因为已经装不了了。所以这一点就提醒我们，<code>basecase</code>的写法，不能只是顾着递归的含义，而要更加关注上下游的关系以及具体题目所给出的具体内容。比如，这里<code>rest &lt; 0</code>，如果单单从递归含义理解，那么就是遇到了一个不能装东西的背包，返回零好像没有什么问题，但是其实，这还说明了这是一个无效解，我们要用-1去标记一下，因为这样上游就可以判断，我这么做决策，是不是有效的，如果有效的话，我才这么做决策。这就是设置无效解的思想。</li>
+<li>第二个<code>basecase</code>判断，<code>index</code>来到了第一个越界的位置。我们仍然遵循<code>basecase</code>要谨慎分析的原则，理解到，来到越界位置说明之前的决策已经做完了，这个<code>basecase</code>的作用没有别的，只是单纯的返回上一层，返回<code>0</code>不影响结果而已。或者也可以换一种理解方式，<code>0-index-1</code>位置，也就是数组的左右位置，我都做好决策了，而显然，答案是在决策过程中确定的，而不是在最下游<code>basecase</code>收集的，所以可以理解为，目前不需要做决策，所以最大价值就是<code>0</code>，不是说遇到了无效解，而是不需要决策了。</li>
+</ol>
+<p>我们来看一下递归的主体：</p>
+<ol>
+<li>我们遇到任何一个普遍的<code>index</code>时候，有两种选择，一是选择不要当前的物品，那么答案显而易见就是<code>process1(w, v, index + 1, rest)</code>；</li>
+<li>二是要这件物品。我们首先用<code>p2</code>接受一下下游的过程，意义是如果要这件物品，后续的最大价值是多少；</li>
+<li>但是<code>p2</code>很有可能是无效解，原因是当前的决策，决策无效了，这样<code>p2</code>就不能成立；</li>
+<li>所以在确定<code>p2</code>真正的值的时候，我们要判断下游是不是有效的，如果无效得<code>0</code>，如果有效，得<code>p2+v[index]</code>;</li>
+<li>最后返回<code>p1</code>和<code>p2</code>最大值即可。</li>
+</ol>
+<h4 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h4><p>动态规划主要先是分析好两个范围，寻找出变量有两个，一个是<code>index</code>，一个是<code>rest</code>。<code>index</code>的范围是<code>0-v.length</code>，一共是<code>v.length+1</code>个；<code>rest</code>的范围是<code>0-bag</code>，一共是<code>bag+1</code>个。当然，<code>rest</code>也可能小于零，但是那是无效解，没必要也不可能记录在表格里的。这里的范围是有效解答案的范围。</p>
+<p>看代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">maxValue2</span><span class="params">(<span class="type">int</span>[] w, <span class="type">int</span>[] v, <span class="type">int</span> bag)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (w == <span class="literal">null</span> || v == <span class="literal">null</span> || bag &lt; <span class="number">0</span> || w.length == <span class="number">0</span> || v.length == <span class="number">0</span> || w.length != v.length) &#123;</span><br><span class="line">			<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="type">int</span> <span class="variable">N</span> <span class="operator">=</span> w.length;</span><br><span class="line">		<span class="type">int</span>[][] dp = <span class="keyword">new</span> <span class="title class_">int</span>[N + <span class="number">1</span>][bag + <span class="number">1</span>];</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> N - <span class="number">1</span>; index &gt;= <span class="number">0</span>; index--) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">rest</span> <span class="operator">=</span> <span class="number">0</span>; rest &lt;= bag; rest++) &#123;</span><br><span class="line">				<span class="type">int</span> <span class="variable">p1</span> <span class="operator">=</span> dp[index + <span class="number">1</span>][rest];<span class="comment">// 不要当前的物品</span></span><br><span class="line">        <span class="comment">// 无效解在动态规划中直接判断就行</span></span><br><span class="line">				<span class="type">int</span> <span class="variable">p2</span> <span class="operator">=</span> rest - w[index] &gt;= <span class="number">0</span> ? dp[index + <span class="number">1</span>][rest - w[index]] + v[index] : <span class="number">0</span>;</span><br><span class="line">				dp[index][rest] = Math.max(p1, p2);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> dp[<span class="number">0</span>][bag];</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这边绝大多数也是套路化的，主要就是注意一下，如何进行无效解判定，最关键的是要弄清楚是什么变量和什么情况下会出现无效解。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://xialinrui.github.io">Xia Linrui</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://xialinrui.github.io/2021/06/12/%E4%BB%8E%E9%80%92%E5%BD%92%E5%88%B0%E5%8A%A8%E8%A7%84%E9%A2%98%E7%9B%AE%EF%BC%883%EF%BC%89%E2%80%94%E2%80%94Knapsack/">https://xialinrui.github.io/2021/06/12/%E4%BB%8E%E9%80%92%E5%BD%92%E5%88%B0%E5%8A%A8%E8%A7%84%E9%A2%98%E7%9B%AE%EF%BC%883%EF%BC%89%E2%80%94%E2%80%94Knapsack/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://xialinrui.github.io" target="_blank">linrui</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a></div><div class="post_share"><div class="social-share" data-image="/./img/%E7%AE%97%E6%B3%95/%E4%BD%93%E7%B3%BB%E5%AD%A6%E4%B9%A0/%E5%B0%81%E9%9D%A2/dp/003.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/06/12/Problem001_TwoSum/"><img class="prev-cover" src="/./img/%E7%AE%97%E6%B3%95/LeetCode%E5%88%B7%E9%A2%98/%E5%B0%81%E9%9D%A2/001.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">LeetCode_001_TwoSum</div></div></a></div><div class="next-post pull-right"><a href="/2021/06/11/%E4%BB%8E%E9%80%92%E5%BD%92%E5%88%B0%E5%8A%A8%E8%A7%84%E9%A2%98%E7%9B%AE%EF%BC%881%EF%BC%89%E2%80%94%E2%80%94RobotWalk/"><img class="next-cover" src="/./img/%E7%AE%97%E6%B3%95/%E4%BD%93%E7%B3%BB%E5%AD%A6%E4%B9%A0/%E5%B0%81%E9%9D%A2/dp/001.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">从递归到动态规划_Problem1</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/06/11/%E4%BB%8E%E9%80%92%E5%BD%92%E5%88%B0%E5%8A%A8%E8%A7%84%E9%A2%98%E7%9B%AE%EF%BC%881%EF%BC%89%E2%80%94%E2%80%94RobotWalk/" title="从递归到动态规划_Problem1"><img class="cover" src="/./img/%E7%AE%97%E6%B3%95/%E4%BD%93%E7%B3%BB%E5%AD%A6%E4%B9%A0/%E5%B0%81%E9%9D%A2/dp/001.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-11</div><div class="title">从递归到动态规划_Problem1</div></div></a></div><div><a href="/2021/06/12/Problem001_TwoSum/" title="LeetCode_001_TwoSum"><img class="cover" src="/./img/%E7%AE%97%E6%B3%95/LeetCode%E5%88%B7%E9%A2%98/%E5%B0%81%E9%9D%A2/001.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-12</div><div class="title">LeetCode_001_TwoSum</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/./img/%E5%A4%B4%E5%83%8F.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Xia Linrui</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/xialinrui" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:xialinrui@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8E%E9%80%92%E5%BD%92%E5%88%B0%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92Problem-3"><span class="toc-number">1.</span> <span class="toc-text">从递归到动态规划Problem_3</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Knapsack"><span class="toc-number">1.1.</span> <span class="toc-text">Knapsack</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.1.1.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-number">1.1.2.</span> <span class="toc-text">算法分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9A%B4%E5%8A%9B%E9%80%92%E5%BD%92"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">暴力递归</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="toc-number">1.1.2.2.</span> <span class="toc-text">动态规划</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/06/13/Problem002_AddTwoNumbers/" title="LeetCode_002_AddTwoNumbers"><img src="/./img/%E7%AE%97%E6%B3%95/LeetCode%E5%88%B7%E9%A2%98/%E5%B0%81%E9%9D%A2/002.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LeetCode_002_AddTwoNumbers"/></a><div class="content"><a class="title" href="/2021/06/13/Problem002_AddTwoNumbers/" title="LeetCode_002_AddTwoNumbers">LeetCode_002_AddTwoNumbers</a><time datetime="2021-06-12T16:32:22.000Z" title="发表于 2021-06-13 00:32:22">2021-06-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/06/12/Problem001_TwoSum/" title="LeetCode_001_TwoSum"><img src="/./img/%E7%AE%97%E6%B3%95/LeetCode%E5%88%B7%E9%A2%98/%E5%B0%81%E9%9D%A2/001.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LeetCode_001_TwoSum"/></a><div class="content"><a class="title" href="/2021/06/12/Problem001_TwoSum/" title="LeetCode_001_TwoSum">LeetCode_001_TwoSum</a><time datetime="2021-06-11T16:32:22.000Z" title="发表于 2021-06-12 00:32:22">2021-06-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/06/12/%E4%BB%8E%E9%80%92%E5%BD%92%E5%88%B0%E5%8A%A8%E8%A7%84%E9%A2%98%E7%9B%AE%EF%BC%883%EF%BC%89%E2%80%94%E2%80%94Knapsack/" title="从递归到动态规划_Problem3"><img src="/./img/%E7%AE%97%E6%B3%95/%E4%BD%93%E7%B3%BB%E5%AD%A6%E4%B9%A0/%E5%B0%81%E9%9D%A2/dp/003.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从递归到动态规划_Problem3"/></a><div class="content"><a class="title" href="/2021/06/12/%E4%BB%8E%E9%80%92%E5%BD%92%E5%88%B0%E5%8A%A8%E8%A7%84%E9%A2%98%E7%9B%AE%EF%BC%883%EF%BC%89%E2%80%94%E2%80%94Knapsack/" title="从递归到动态规划_Problem3">从递归到动态规划_Problem3</a><time datetime="2021-06-11T16:32:22.000Z" title="发表于 2021-06-12 00:32:22">2021-06-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/06/11/%E4%BB%8E%E9%80%92%E5%BD%92%E5%88%B0%E5%8A%A8%E8%A7%84%E9%A2%98%E7%9B%AE%EF%BC%881%EF%BC%89%E2%80%94%E2%80%94RobotWalk/" title="从递归到动态规划_Problem1"><img src="/./img/%E7%AE%97%E6%B3%95/%E4%BD%93%E7%B3%BB%E5%AD%A6%E4%B9%A0/%E5%B0%81%E9%9D%A2/dp/001.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从递归到动态规划_Problem1"/></a><div class="content"><a class="title" href="/2021/06/11/%E4%BB%8E%E9%80%92%E5%BD%92%E5%88%B0%E5%8A%A8%E8%A7%84%E9%A2%98%E7%9B%AE%EF%BC%881%EF%BC%89%E2%80%94%E2%80%94RobotWalk/" title="从递归到动态规划_Problem1">从递归到动态规划_Problem1</a><time datetime="2021-06-10T16:32:22.000Z" title="发表于 2021-06-11 00:32:22">2021-06-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/06/10/%E5%A3%B0%E6%98%8E/" title="声明"><img src="/./img/background/4.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="声明"/></a><div class="content"><a class="title" href="/2021/06/10/%E5%A3%B0%E6%98%8E/" title="声明">声明</a><time datetime="2021-06-09T16:32:22.000Z" title="发表于 2021-06-10 00:32:22">2021-06-10</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Xia Linrui</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

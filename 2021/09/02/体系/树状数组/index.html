@@ -1,0 +1,267 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>树状数组 | 格 心</title><meta name="keywords" content="树状数组,高级数据结构"><meta name="author" content="Xia Linrui"><meta name="copyright" content="Xia Linrui"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="树状数组树状数组能干啥 树状数组实现的问题要分为一维、二维。现假设有一数组arr： 一维树状数组：假设arr数组是一个一维数组。树状数组解决的问题是： 用log(N)的时间复杂度求出arr任意范围[L...R]上的累加和。由于累加和可以由前缀和数组简单求出，所以问题转移到了，这个结构能快速生成一个前缀和数组 arr任意修改一个值，随之而来的调整代价也是极低的。（单点修改）   二维树状数组：假设a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树状数组">
+<meta property="og:url" content="https://xialinrui.github.io/2021/09/02/%E4%BD%93%E7%B3%BB/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/index.html">
+<meta property="og:site_name" content="格 心">
+<meta property="og:description" content="树状数组树状数组能干啥 树状数组实现的问题要分为一维、二维。现假设有一数组arr： 一维树状数组：假设arr数组是一个一维数组。树状数组解决的问题是： 用log(N)的时间复杂度求出arr任意范围[L...R]上的累加和。由于累加和可以由前缀和数组简单求出，所以问题转移到了，这个结构能快速生成一个前缀和数组 arr任意修改一个值，随之而来的调整代价也是极低的。（单点修改）   二维树状数组：假设a">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xialinrui.github.io/img/%E7%AE%97%E6%B3%95/%E4%BD%93%E7%B3%BB%E5%AD%A6%E4%B9%A0/%E5%B0%81%E9%9D%A2/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84.png">
+<meta property="article:published_time" content="2021-09-02T07:17:21.000Z">
+<meta property="article:modified_time" content="2022-09-02T07:22:33.481Z">
+<meta property="article:author" content="Xia Linrui">
+<meta property="article:tag" content="树状数组">
+<meta property="article:tag" content="高级数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xialinrui.github.io/img/%E7%AE%97%E6%B3%95/%E4%BD%93%E7%B3%BB%E5%AD%A6%E4%B9%A0/%E5%B0%81%E9%9D%A2/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://xialinrui.github.io/2021/09/02/%E4%BD%93%E7%B3%BB/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '树状数组',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-09-02 15:22:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./img/%E5%A4%B4%E5%83%8F.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">22</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 我的主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-heart"></i><span> 分类查看</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 所有分类</span></a></li><li><a class="site-page child" href="/categories/%E7%AE%97%E6%B3%95%E4%BD%93%E7%B3%BB%E6%9E%84%E5%BB%BA/"><i class="fa-fw fas fa-folder-open"></i><span> 算法体系构建</span></a></li><li><a class="site-page child" href="/categories/LeetCode%E5%88%B7%E9%A2%98/"><i class="fa-fw fas fa-folder-open"></i><span> LeetCode刷题</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/./img/%E7%AE%97%E6%B3%95/%E4%BD%93%E7%B3%BB%E5%AD%A6%E4%B9%A0/%E5%B0%81%E9%9D%A2/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">格 心</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 我的主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-heart"></i><span> 分类查看</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 所有分类</span></a></li><li><a class="site-page child" href="/categories/%E7%AE%97%E6%B3%95%E4%BD%93%E7%B3%BB%E6%9E%84%E5%BB%BA/"><i class="fa-fw fas fa-folder-open"></i><span> 算法体系构建</span></a></li><li><a class="site-page child" href="/categories/LeetCode%E5%88%B7%E9%A2%98/"><i class="fa-fw fas fa-folder-open"></i><span> LeetCode刷题</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">树状数组</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-09-02T07:17:21.000Z" title="发表于 2021-09-02 15:17:21">2021-09-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-09-02T07:22:33.481Z" title="更新于 2022-09-02 15:22:33">2022-09-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95%E4%BD%93%E7%B3%BB%E6%9E%84%E5%BB%BA/">算法体系构建</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="树状数组"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="树状数组"><a href="#树状数组" class="headerlink" title="树状数组"></a>树状数组</h1><h2 id="树状数组能干啥"><a href="#树状数组能干啥" class="headerlink" title="树状数组能干啥"></a>树状数组能干啥</h2><ul>
+<li>树状数组实现的问题要分为<strong>一维、二维</strong>。现假设有一数组<code>arr</code>：<ul>
+<li><strong>一维树状数组</strong>：假设<code>arr</code>数组是一个一维数组。树状数组解决的问题是：<ol>
+<li>用<code>log(N)</code>的时间复杂度求出<code>arr</code>任意范围<code>[L...R]</code>上的累加和。由于累加和可以由前缀和数组简单求出，所以问题转移到了，这个结构能快速生成一个前缀和数组</li>
+<li><code>arr</code>任意修改一个值，随之而来的调整代价也是极低的。（单点修改）</li>
+</ol>
+</li>
+<li><strong>二维树状数组</strong>：假设<code>arr</code>数组是一个二维数组。树状数组解决的问题是：<ol>
+<li>能够快速求出由<code>arr[x1][y1]</code>和<code>arr[x2][y2]</code>为对角线定点所围出的矩形区域中所有元素的累加和</li>
+<li><code>arr</code>任意修改一个值，随之而来的调整代价也是极低的。（单点修改）</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="一维树状数组的实现"><a href="#一维树状数组的实现" class="headerlink" title="一维树状数组的实现"></a>一维树状数组的实现</h2><ul>
+<li>本节所有数组下标的索引皆从<code>1</code>开始，<code>0</code>位置弃而不用，为的是后续位运算的合理性</li>
+<li>我们定义一个树状数组<code>tree</code>，结构实现如下：<ul>
+<li>每一个位置填的数是<strong>原数组某一个区间上的累加和</strong></li>
+<li>我们脑补一个概念，就是<strong>所要存的区间累加和的区间长度</strong></li>
+<li>对于每一个位置而言，首先要记录自己到自己位置单个元素的值，要不要继续增加区间长度取决于<strong>当前已经存储的区间长度与之前位置存储的区间长度是否一致</strong>，一直的话就进行合并，不一致就不进行任何操作</li>
+<li>下面给一个具体的例子，假设原数组的长度是<code>16</code></li>
+<li>注释：<code>arr</code>数组划横线代表当前所记录的最长区间长度<ul>
+<li>首先初始化数组<img src="/2021/09/02/%E4%BD%93%E7%B3%BB/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/001.jpg" style="zoom:50%;"></li>
+<li>现在开始填写第一个位置</li>
+<li>第一个位置只能填自己到自己的累加和<img src="/2021/09/02/%E4%BD%93%E7%B3%BB/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/002.jpg" style="zoom:50%;"></li>
+<li>第一个位置之前没有填过，所以往后跳</li>
+<li>第二个位置首先填上自己<img src="/2021/09/02/%E4%BD%93%E7%B3%BB/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/003.jpg" style="zoom:50%;"></li>
+<li>但是发现，<code>2</code>位置所表示的区间长度是<code>1</code>，之前的区间长度填的也是<code>1</code>，相同，所以可以合并<img src="/2021/09/02/%E4%BD%93%E7%B3%BB/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/004.jpg" style="zoom:50%;"></li>
+<li>因此，<code>2</code>位置填的就是原数组<code>1-2</code>位置的累加和<img src="/2021/09/02/%E4%BD%93%E7%B3%BB/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/005.jpg" style="zoom:50%;"></li>
+<li>从<code>3</code>位置开始，以此按照这个规律<img src="/2021/09/02/%E4%BD%93%E7%B3%BB/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/006.jpg" style="zoom:50%;"></li>
+<li>最终能得到树状数组每一个位置填哪些区间的累加和<img src="/2021/09/02/%E4%BD%93%E7%B3%BB/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/007.jpg" style="zoom:50%;"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>认识了树状数组每个位置的填法怎么规定，我们现在要解决的就是如何去填。<ul>
+<li><strong>第一，每个位置如何快速知道所要填的区间的开始位置和末尾位置？</strong><ul>
+<li>结论：末尾位置是自己，开始位置是让自己最右侧的<code>1</code>变成<code>0</code>之后再<code>+1</code>的位置（二进制下）</li>
+</ul>
+</li>
+<li><strong>第二，如何求出原数组<code>arr[index]</code>位置的前缀和（从第一个位置一直加到<code>index</code>位置）?</strong><ul>
+<li>结论：我们只需在树状数组中找到一些特定的位置相加即可。这些位置是index不断把最右侧的<code>1</code>变成<code>0</code>之后的位置。</li>
+<li>举个例子，假设我们要求<code>arr[1]</code>一直加到<code>arr[35]</code>（也就是<code>index = 35</code>），首先我们要写出<code>35</code>的二进制形式是<code>10011</code>，所以我们要找的树状数组的位置是：<code>10011</code>位置、<code>10010</code>位置、<code>10000</code>位置，也就是这个前缀和等于<code>tree[35] + tree[33] + tree[32]</code></li>
+<li>这种方式我们惊奇的发现，时间复杂度是<code>O(1)</code></li>
+</ul>
+</li>
+<li><strong>第三，我现在对<code>arr</code>数组某一个<code>index</code>位置的值进行更新，我想快速知道<code>tree</code>树状数组怎么更新，也就是说我想知道改了这一个值之后，哪些位置会受到影响？</strong><ul>
+<li>结论是：这些受影响的位置是，从<code>index</code>不断加上最右侧的1及其后面的0所构成的数位置，最大位置当然不能超过数组长度。</li>
+<li>举个例子：假设我现在对<code>arr</code>中，<code>index = 10011000</code>位置的数进行更新。那么相应的，在<code>tree</code>中受到牵连（我们要更改数据保，以证结构正确性的）位置是：<code>10011000</code>，<code>10011000 + 1000 = 10100000</code>，<code>10100000 + 100000 = 11000000</code>，……位置</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>以上就是一维树状数组的实现，代码如下：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">IndexTree</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span>[] tree;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> N;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 0位置弃而不用！</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">IndexTree</span><span class="params">(<span class="type">int</span> size)</span> &#123;</span><br><span class="line">        N = size;</span><br><span class="line">        tree = <span class="keyword">new</span> <span class="title class_">int</span>[N + <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 1~index 累加和是多少？</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">sum</span><span class="params">(<span class="type">int</span> index)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">ret</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (index &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            ret += tree[index];</span><br><span class="line">            index -= index &amp; -index;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// index &amp; -index : 提取出index最右侧的1出来</span></span><br><span class="line">    <span class="comment">// index :           0011001000</span></span><br><span class="line">    <span class="comment">// index &amp; -index :  0000001000</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> index, <span class="type">int</span> d)</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (index &lt;= N) &#123;</span><br><span class="line">            tree[index] += d;</span><br><span class="line">            index += index &amp; -index;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="二维树状数组的实现"><a href="#二维树状数组的实现" class="headerlink" title="二维树状数组的实现"></a>二维树状数组的实现</h2></li>
+<li>二维树状数组思想上和一维差不多，了解一下几个结论即可：<ul>
+<li><strong>第一，想算二维定义下的前缀和怎么算？</strong><ul>
+<li>结论：我们只需在树状数组中找到一些特定的位置相加即可。这些位置行和列都是相应的<code>i</code>和<code>j</code>不断把最右侧的<code>1</code>变成<code>0</code>之后的位置。</li>
+<li>举个例子，假设我们要求<code>arr[2][3]</code>的二维”前缀和”，首先我们要写出<code>2</code>的二进制形式是<code>0010</code>，所以我们要找的树状数组的横坐标是：<code>0010</code>位置；<code>3</code>的二进制是<code>0011</code>，所以我们要找的树状数组的纵坐标是<code>0011</code>位置、<code>0010</code>位置。这样算下来有三种组合，也就是说最终这个前缀和等于<code>tree[2][2] + tree[2][3]</code></li>
+</ul>
+</li>
+<li><strong>第二，对arr中一个位置的值进行更新，tree哪些位置会受到影响而随之跟新？</strong><ul>
+<li>行受影响的位置是，从i不断加上最右侧的<code>1</code>及其后面的<code>0</code>所构成的数位置，最大位置当然不能超过行数；</li>
+<li>列受影响的位置是，从j不断加上最右侧的<code>1</code>及其后面的<code>0</code>所构成的数位置，最大位置当然不能超过列数；</li>
+<li>相互组合即可</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>以上就是二维树状数组的实现，代码如下：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ndexTree2D</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span>[][] tree;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span>[][] nums;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> N;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> M;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">IndexTree2D</span><span class="params">(<span class="type">int</span>[][] matrix)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (matrix.length == <span class="number">0</span> || matrix[<span class="number">0</span>].length == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		N = matrix.length;</span><br><span class="line">		M = matrix[<span class="number">0</span>].length;</span><br><span class="line">		tree = <span class="keyword">new</span> <span class="title class_">int</span>[N + <span class="number">1</span>][M + <span class="number">1</span>];</span><br><span class="line">		nums = <span class="keyword">new</span> <span class="title class_">int</span>[N][M];</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; M; j++) &#123;</span><br><span class="line">				update(i, j, matrix[i][j]);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> <span class="title function_">sum</span><span class="params">(<span class="type">int</span> row, <span class="type">int</span> col)</span> &#123;</span><br><span class="line">		<span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> row + <span class="number">1</span>; i &gt; <span class="number">0</span>; i -= i &amp; (-i)) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> col + <span class="number">1</span>; j &gt; <span class="number">0</span>; j -= j &amp; (-j)) &#123;</span><br><span class="line">				sum += tree[i][j];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> sum;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">update</span><span class="params">(<span class="type">int</span> row, <span class="type">int</span> col, <span class="type">int</span> val)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (N == <span class="number">0</span> || M == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="type">int</span> <span class="variable">add</span> <span class="operator">=</span> val - nums[row][col];</span><br><span class="line">		nums[row][col] = val;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> row + <span class="number">1</span>; i &lt;= N; i += i &amp; (-i)) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> col + <span class="number">1</span>; j &lt;= M; j += j &amp; (-j)) &#123;</span><br><span class="line">				tree[i][j] += add;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="type">int</span> <span class="title function_">sumRegion</span><span class="params">(<span class="type">int</span> row1, <span class="type">int</span> col1, <span class="type">int</span> row2, <span class="type">int</span> col2)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (N == <span class="number">0</span> || M == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> sum(row2, col2) + sum(row1 - <span class="number">1</span>, col1 - <span class="number">1</span>) - sum(row1 - <span class="number">1</span>, col2) - sum(row2, col1 - <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://xialinrui.github.io">Xia Linrui</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://xialinrui.github.io/2021/09/02/%E4%BD%93%E7%B3%BB/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/">https://xialinrui.github.io/2021/09/02/%E4%BD%93%E7%B3%BB/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://xialinrui.github.io" target="_blank">格 心</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/">树状数组</a><a class="post-meta__tags" href="/tags/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">高级数据结构</a></div><div class="post_share"><div class="social-share" data-image="/./img/%E7%AE%97%E6%B3%95/%E4%BD%93%E7%B3%BB%E5%AD%A6%E4%B9%A0/%E5%B0%81%E9%9D%A2/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/08/18/Problem003/"><img class="next-cover" src="/./img/%E7%AE%97%E6%B3%95/%E5%A4%A7%E5%8E%82%E9%9D%A2%E8%AF%95%E9%A2%98/%E5%B0%81%E9%9D%A2/003.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">great_offer_003_CountFiles</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/./img/%E5%A4%B4%E5%83%8F.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Xia Linrui</div><div class="author-info__description">心即理也。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">22</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/xialinrui" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:xialinrui@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">近期致力于JavaWeb和算法的学习</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84"><span class="toc-number">1.</span> <span class="toc-text">树状数组</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%E8%83%BD%E5%B9%B2%E5%95%A5"><span class="toc-number">1.1.</span> <span class="toc-text">树状数组能干啥</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E7%BB%B4%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.2.</span> <span class="toc-text">一维树状数组的实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E7%BB%B4%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.3.</span> <span class="toc-text">二维树状数组的实现</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/09/02/%E4%BD%93%E7%B3%BB/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/" title="树状数组"><img src="/./img/%E7%AE%97%E6%B3%95/%E4%BD%93%E7%B3%BB%E5%AD%A6%E4%B9%A0/%E5%B0%81%E9%9D%A2/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="树状数组"/></a><div class="content"><a class="title" href="/2021/09/02/%E4%BD%93%E7%B3%BB/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/" title="树状数组">树状数组</a><time datetime="2021-09-02T07:17:21.000Z" title="发表于 2021-09-02 15:17:21">2021-09-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/18/Problem003/" title="great_offer_003_CountFiles"><img src="/./img/%E7%AE%97%E6%B3%95/%E5%A4%A7%E5%8E%82%E9%9D%A2%E8%AF%95%E9%A2%98/%E5%B0%81%E9%9D%A2/003.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="great_offer_003_CountFiles"/></a><div class="content"><a class="title" href="/2021/08/18/Problem003/" title="great_offer_003_CountFiles">great_offer_003_CountFiles</a><time datetime="2021-08-18T08:14:30.000Z" title="发表于 2021-08-18 16:14:30">2021-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/17/Problem002/" title="great_offer_002_CountFiles"><img src="/./img/%E7%AE%97%E6%B3%95/%E5%A4%A7%E5%8E%82%E9%9D%A2%E8%AF%95%E9%A2%98/%E5%B0%81%E9%9D%A2/002.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="great_offer_002_CountFiles"/></a><div class="content"><a class="title" href="/2021/08/17/Problem002/" title="great_offer_002_CountFiles">great_offer_002_CountFiles</a><time datetime="2021-08-17T05:54:45.000Z" title="发表于 2021-08-17 13:54:45">2021-08-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/16/Problem001/" title="great_offer_001_CordCoverMaxPoint"><img src="/./img/%E7%AE%97%E6%B3%95/%E5%A4%A7%E5%8E%82%E9%9D%A2%E8%AF%95%E9%A2%98/%E5%B0%81%E9%9D%A2/001.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="great_offer_001_CordCoverMaxPoint"/></a><div class="content"><a class="title" href="/2021/08/16/Problem001/" title="great_offer_001_CordCoverMaxPoint">great_offer_001_CordCoverMaxPoint</a><time datetime="2021-08-15T22:30:45.000Z" title="发表于 2021-08-16 06:30:45">2021-08-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/15/Problem003_LongestSubstringWithoutRepeatingCharacters/" title="LeetCode_003_LongestSubstringWithoutRepeatingCharacters"><img src="/./img/%E7%AE%97%E6%B3%95/LeetCode%E5%88%B7%E9%A2%98/%E5%B0%81%E9%9D%A2/003.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LeetCode_003_LongestSubstringWithoutRepeatingCharacters"/></a><div class="content"><a class="title" href="/2021/08/15/Problem003_LongestSubstringWithoutRepeatingCharacters/" title="LeetCode_003_LongestSubstringWithoutRepeatingCharacters">LeetCode_003_LongestSubstringWithoutRepeatingCharacters</a><time datetime="2021-08-15T12:32:22.000Z" title="发表于 2021-08-15 20:32:22">2021-08-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Xia Linrui</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

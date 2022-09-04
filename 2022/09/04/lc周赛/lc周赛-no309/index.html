@@ -1,0 +1,320 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>lc周赛-no309 | 格 心</title><meta name="keywords" content="哈希表,递归,记忆化搜索,从左往右的尝试模型,数学,滑动窗口,位运算,堆,排序"><meta name="author" content="Xia Linrui"><meta name="copyright" content="Xia Linrui"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="lc周赛-no309考点 哈希表 递归 记忆化搜索 数学 滑动窗口 位运算 堆 排序  Problem1_CheckDistancesBetweenSameLetters题目描述给你一个下标从0开始的字符串s，该字符串仅由小写英文字母组成,s中的每个字母都恰好出现两次。另给你一个下标从0开始、长度为26的的整数数组distance。字母表中的每个字母按从0到25依次编号（即，&#39;a&#39;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lc周赛-no309">
+<meta property="og:url" content="https://xialinrui.github.io/2022/09/04/lc%E5%91%A8%E8%B5%9B/lc%E5%91%A8%E8%B5%9B-no309/index.html">
+<meta property="og:site_name" content="格 心">
+<meta property="og:description" content="lc周赛-no309考点 哈希表 递归 记忆化搜索 数学 滑动窗口 位运算 堆 排序  Problem1_CheckDistancesBetweenSameLetters题目描述给你一个下标从0开始的字符串s，该字符串仅由小写英文字母组成,s中的每个字母都恰好出现两次。另给你一个下标从0开始、长度为26的的整数数组distance。字母表中的每个字母按从0到25依次编号（即，&#39;a&#39;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xialinrui.github.io/img/%E7%AE%97%E6%B3%95/lc%E5%91%A8%E8%B5%9B/309.png">
+<meta property="article:published_time" content="2022-09-04T11:14:02.000Z">
+<meta property="article:modified_time" content="2022-09-04T11:17:56.727Z">
+<meta property="article:author" content="Xia Linrui">
+<meta property="article:tag" content="哈希表">
+<meta property="article:tag" content="递归">
+<meta property="article:tag" content="记忆化搜索">
+<meta property="article:tag" content="从左往右的尝试模型">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="滑动窗口">
+<meta property="article:tag" content="位运算">
+<meta property="article:tag" content="堆">
+<meta property="article:tag" content="排序">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xialinrui.github.io/img/%E7%AE%97%E6%B3%95/lc%E5%91%A8%E8%B5%9B/309.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://xialinrui.github.io/2022/09/04/lc%E5%91%A8%E8%B5%9B/lc%E5%91%A8%E8%B5%9B-no309/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'lc周赛-no309',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-09-04 19:17:56'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./img/%E5%A4%B4%E5%83%8F.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 我的主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-heart"></i><span> 分类查看</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 所有分类</span></a></li><li><a class="site-page child" href="/categories/%E7%AE%97%E6%B3%95%E4%BD%93%E7%B3%BB%E6%9E%84%E5%BB%BA/"><i class="fa-fw fas fa-folder-open"></i><span> 算法体系构建</span></a></li><li><a class="site-page child" href="/categories/LeetCode%E5%88%B7%E9%A2%98/"><i class="fa-fw fas fa-folder-open"></i><span> LeetCode刷题</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/./img/%E7%AE%97%E6%B3%95/lc%E5%91%A8%E8%B5%9B/309.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">格 心</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 我的主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-heart"></i><span> 分类查看</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 所有分类</span></a></li><li><a class="site-page child" href="/categories/%E7%AE%97%E6%B3%95%E4%BD%93%E7%B3%BB%E6%9E%84%E5%BB%BA/"><i class="fa-fw fas fa-folder-open"></i><span> 算法体系构建</span></a></li><li><a class="site-page child" href="/categories/LeetCode%E5%88%B7%E9%A2%98/"><i class="fa-fw fas fa-folder-open"></i><span> LeetCode刷题</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">lc周赛-no309</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-09-04T11:14:02.000Z" title="发表于 2022-09-04 19:14:02">2022-09-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-09-04T11:17:56.727Z" title="更新于 2022-09-04 19:17:56">2022-09-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/lc%E5%91%A8%E8%B5%9B/">lc周赛</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="lc周赛-no309"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="lc周赛-no309"><a href="#lc周赛-no309" class="headerlink" title="lc周赛-no309"></a>lc周赛-no309</h1><h2 id="考点"><a href="#考点" class="headerlink" title="考点"></a>考点</h2><ul>
+<li>哈希表</li>
+<li>递归</li>
+<li>记忆化搜索</li>
+<li>数学</li>
+<li>滑动窗口</li>
+<li>位运算</li>
+<li>堆</li>
+<li>排序</li>
+</ul>
+<h2 id="Problem1-CheckDistancesBetweenSameLetters"><a href="#Problem1-CheckDistancesBetweenSameLetters" class="headerlink" title="Problem1_CheckDistancesBetweenSameLetters"></a>Problem1_CheckDistancesBetweenSameLetters</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给你一个下标从<code>0</code>开始的字符串<code>s</code>，该字符串仅由小写英文字母组成,<code>s</code>中的每个字母都恰好出现两次。另给你一个下标从<code>0</code>开始、长度为<code>26</code>的的整数数组<code>distance</code>。<br>字母表中的每个字母按从<code>0</code>到<code>25</code>依次编号（即，<code>&#39;a&#39; -&gt; 0</code>, <code>&#39;b&#39; -&gt; 1</code>, <code>&#39;c&#39; -&gt; 2</code>, … , <code>&#39;z&#39; -&gt; 25</code>）。 在一个匀整字符串中，第<code>i</code>个字母的两次出现之间的字母数量是<code>distance[i]</code>。如果第<code>i</code>个字母没有在<code>s</code>中出现，那么<code>distance[i]</code>可以忽略 。 如果<code>s</code>是一个<code>匀整</code>字符串，返回<code>true</code>；否则，返回<code>false</code>。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;abaccb&quot;, distance = [1,3,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]</span><br><span class="line">输出：true </span><br><span class="line">解释：</span><br><span class="line">- &#x27;a&#x27; 在下标 0 和下标 2 处出现，所以满足 distance[0] = 1 。</span><br><span class="line">- &#x27;b&#x27; 在下标 1 和下标 5 处出现，所以满足 distance[1] = 3 。</span><br><span class="line">- &#x27;c&#x27; 在下标 3 和下标 4 处出现，所以满足 distance[2] = 0 。 </span><br><span class="line">注意 distance[3] = 5 ，但是由于 &#x27;d&#x27; 没有在 s 中出现，可以忽略。 因为 s 是一个匀整字符串，返回 true 。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;aa&quot;, distance = [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]</span><br><span class="line">输出：false </span><br><span class="line">解释：</span><br><span class="line">- &#x27;a&#x27; 在下标 0 和 1 处出现，所以两次出现之间的字母数量为 0 。 但是 distance[0] = 1 ，s 不是一个匀整字符串。</span><br></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>2 &lt;= s.length &lt;= 52</code></li>
+<li><code>s</code> 仅由小写英文字母组成</li>
+<li><code>s</code>中的每个字母恰好出现两次</li>
+<li><code>distance.length == 26</code></li>
+<li><code>0 &lt;= distance[i] &lt;= 50</code></li>
+</ul>
+<h3 id="算法思路"><a href="#算法思路" class="headerlink" title="算法思路"></a>算法思路</h3><ul>
+<li>构建一个map，存入某个字符上次出现的位置，再次遇到算出距离去比较即可</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">checkDistances</span><span class="params">(String s, <span class="type">int</span>[] distance)</span> &#123;</span><br><span class="line">    <span class="type">char</span>[] str = s.toCharArray();</span><br><span class="line">    Map&lt;Character, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; str.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (map.containsKey(str[i])) &#123;</span><br><span class="line">            <span class="keyword">if</span> (distance[str[i] - <span class="string">&#x27;a&#x27;</span>] != i - map.get(str[i]) - <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            map.put(str[i], i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Problem2-NumberOfWaysToReachAPositionAfterExactlyKStep"><a href="#Problem2-NumberOfWaysToReachAPositionAfterExactlyKStep" class="headerlink" title="Problem2_NumberOfWaysToReachAPositionAfterExactlyKStep"></a>Problem2_NumberOfWaysToReachAPositionAfterExactlyKStep</h2><h3 id="题目描述-1"><a href="#题目描述-1" class="headerlink" title="题目描述"></a>题目描述</h3><p>给你两个正整数<code>startPos</code>和<code>endPos</code>。最初，你站在无限数轴上位置<code>startPos</code>处。在一步移动中，你可以向左或者向右移动一个位置。 给你一个正整数<code>k</code>，返回从<code>startPos</code>出发、恰好移动<code>k</code>步并到达<code>endPos</code>的 不同 方法数目。由于答案可能会很大，返回对<code>1000000007</code>取余的结果。 如果所执行移动的顺序不完全相同，则认为两种方法不同。 注意：数轴包含负整数。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入：startPos = 1, endPos = 2, k = 3</span><br><span class="line">输出：3</span><br><span class="line">解释：存在 3 种从 1 到 2 且恰好移动 3 步的方法：</span><br><span class="line">- 1 -&gt; 2 -&gt; 3 -&gt; 2.</span><br><span class="line">- 1 -&gt; 2 -&gt; 1 -&gt; 2.</span><br><span class="line">- 1 -&gt; 0 -&gt; 1 -&gt; 2.</span><br><span class="line">  可以证明不存在其他方法，所以返回 3 。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：startPos = 2, endPos = 5, k = 10</span><br><span class="line">输出：0</span><br><span class="line">解释：不存在从 2 到 5 且恰好移动 10 步的方法。</span><br></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li><code>1 &lt;= startPos, endPos, k &lt;= 1000</code></li>
+</ul>
+<h3 id="算法思路-1"><a href="#算法思路-1" class="headerlink" title="算法思路"></a>算法思路</h3><ul>
+<li>看到方法数，直接用<code>dp</code>，由于是无限长，所以最好用记忆化搜索</li>
+<li>注意几个过滤条件：<ul>
+<li>如果要走的步数比当前位置到终点的距离大，表示上游的决策让我现在无路可走，直接返回0</li>
+<li>距离和k的奇偶性必须相同，否则也是世界返回<code>0</code></li>
+</ul>
+</li>
+<li>进行这两步过滤直接打败百分之百</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">numberOfWays2</span><span class="params">(<span class="type">int</span> startPos, <span class="type">int</span> endPos, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    HashMap&lt;Integer, HashMap&lt;Integer, Integer&gt;&gt; dp = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">return</span> process2(startPos, k, endPos, dp) % (<span class="number">1000000000</span> + <span class="number">7</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">process2</span><span class="params">(<span class="type">int</span> index, <span class="type">int</span> rest, <span class="type">int</span> tar, HashMap&lt;Integer, HashMap&lt;Integer, Integer&gt;&gt; dp)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (dp.containsKey(index) &amp;&amp; dp.get(index).containsKey(rest)) &#123;</span><br><span class="line">        <span class="keyword">return</span> dp.get(index).get(rest);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (Math.abs(tar - index) &gt; rest || Math.abs(tar - index) % <span class="number">2</span> != rest % <span class="number">2</span>) &#123;</span><br><span class="line">        insert(index, rest, <span class="number">0</span>, dp);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (rest == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (index == tar) &#123;</span><br><span class="line">            insert(index, rest, <span class="number">1</span>, dp);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        insert(index, rest, <span class="number">0</span>, dp);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">ans</span> <span class="operator">=</span> process2(index + <span class="number">1</span>, rest - <span class="number">1</span>, tar, dp) % (<span class="number">1000000000</span> + <span class="number">7</span>)</span><br><span class="line">            + process2(index - <span class="number">1</span>, rest - <span class="number">1</span>, tar, dp) % (<span class="number">1000000000</span> + <span class="number">7</span>);</span><br><span class="line">    insert(index, rest, ans, dp);</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">insert</span><span class="params">(<span class="type">int</span> index, <span class="type">int</span> rest, <span class="type">int</span> num, HashMap&lt;Integer, HashMap&lt;Integer, Integer&gt;&gt; dp)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (dp.containsKey(index)) &#123;</span><br><span class="line">        HashMap&lt;Integer, Integer&gt; map = dp.get(index);</span><br><span class="line">        map.put(rest, num);</span><br><span class="line">        dp.put(index, map);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        HashMap&lt;Integer, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        map.put(rest, num);</span><br><span class="line">        dp.put(index, map);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当然这道题也可以用数学</li>
+<li>其实很简单，我们假设目前来到坐标为<code>x</code></li>
+<li>假设我们向右走<code>r</code>，向左走<code>k-r</code></li>
+<li>则有<code>x+r-(k-r)=t</code></li>
+<li>则<code>r=(k+t-x)/2</code></li>
+<li>记<code>t-x=d</code>,也就是距离</li>
+<li>也就是向右可以选择走<code>1，2，3……</code>一直到<code>d</code>步</li>
+<li>总的方法数是<code>C(d,r)</code></li>
+</ul>
+<h2 id="Problem3-LongestNiceSubarray"><a href="#Problem3-LongestNiceSubarray" class="headerlink" title="Problem3_LongestNiceSubarray"></a>Problem3_LongestNiceSubarray</h2><h3 id="题目描述-2"><a href="#题目描述-2" class="headerlink" title="题目描述"></a>题目描述</h3><p>给你一个由正整数组成的数组<code>nums</code>。如果<code>nums</code>的子数组中位于不同位置的每对元素按位 与（<code>AND</code>）运算的结果等于<code>0</code>,则称该子数组为<strong>优雅</strong>子数组。返回最长的优雅子数组的长度。子数组是数组中的一个连续部分。<br>注意：长度为<code>1</code>的子数组始终视作优雅子数组。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [1,3,8,48,10]</span><br><span class="line">输出：3</span><br><span class="line">解释：最长的优雅子数组是 [3,8,48] 。子数组满足题目条件：</span><br><span class="line">- 3 AND 8 = 0</span><br><span class="line">- 3 AND 48 = 0</span><br><span class="line">- 8 AND 48 = 0</span><br><span class="line">可以证明不存在更长的优雅子数组，所以返回 3 。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [3,1,5,11,13]</span><br><span class="line">输出：1</span><br><span class="line">解释：最长的优雅子数组长度为 1 ，任何长度为 1 的子数组都满足题目条件。</span><br></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= nums.length &lt;= 1e5 </code></li>
+<li><code>1 &lt;= nums[i] &lt;= 1e9</code></li>
+</ul>
+<h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
+<li>看到要算的是最长的字数组，这个字数组满足一定条件，很容易想到滑动窗口</li>
+<li>总体思路就是，满足条件<code>l++</code>，更新最大值；不满足条件<code>r++</code>，消除<code>r</code>位置对窗口内性质的影响</li>
+<li>我们的关注点就到了：满足的条件如何写以及如何消除r位置的影响</li>
+<li>分析可知，条件就是窗口内任意两个数的与运算要是0，那么如果我更新一个窗口就把所有任意两个数去判断一下。有没有更快捷的做法呢？</li>
+<li>其实是有的，我们用一个变量<code>or</code>去记录窗口中所有数进行或运算之后的值。当窗口往右扩的时候，我们只要比较一个新进的值与上<code>or</code>是不是<code>0</code>即可</li>
+<li>消除影响的时候，直接用<code>or</code>去异或<code>l</code>位置的值，影响就被消除了。</li>
+<li>时间复杂度为<code>O(n)</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">longestNiceSubarray</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">l</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">or</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> Integer.MIN_VALUE;</span><br><span class="line">    <span class="keyword">while</span> (l &lt;= r &amp;&amp; r &lt; nums.length) &#123;</span><br><span class="line">        <span class="keyword">if</span> ((or &amp; nums[r]) == <span class="number">0</span>) &#123;</span><br><span class="line">            or |= nums[r];</span><br><span class="line">            res = Math.max(res, r - l + <span class="number">1</span>);</span><br><span class="line">            r++;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            or ^= nums[l];</span><br><span class="line">            l++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Problem4-MeetingRoomsIII"><a href="#Problem4-MeetingRoomsIII" class="headerlink" title="Problem4_MeetingRoomsIII"></a>Problem4_MeetingRoomsIII</h2><h3 id="题目描述-3"><a href="#题目描述-3" class="headerlink" title="题目描述"></a>题目描述</h3><p>给你一个整数<code>n</code>，共有编号从 <code>0</code> 到 <code>n - 1 </code>的<code> n</code> 个会议室。 给你一个二维整数数组 <code>meetings</code> ，其中<code>meetings[i] = [starti, endi]</code>表示一场会议将会在 半闭 时间区间<code> [starti, endi)</code> 举办。所有 <code>starti</code> 的值 互不相同 。 会议将会按以下方式分配给会议室： 每场会议都会在未占用且编号 最小 的会议室举办。 如果没有可用的会议室，会议将会延期，直到存在空闲的会议室。延期会议的持续时间和原会议持续时间 相同 。 当会议室处于未占用状态时，将会优先提供给原 开始 时间更早的会议。 返回举办最多次会议的房间 编号 。如果存在多个房间满足此条件，则返回编号 最小 的房间。 半闭区间 <code>[a, b) </code>是 <code>a</code> 和 <code>b</code> 之间的区间，包括 a 但 不包括 b 。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">输入：n = 2, meetings = [[0,10],[1,5],[2,7],[3,4]]</span><br><span class="line">输出：0</span><br><span class="line">解释：</span><br><span class="line">- 在时间 0 ，两个会议室都未占用，第一场会议在会议室 0 举办。</span><br><span class="line">- 在时间 1 ，只有会议室 1 未占用，第二场会议在会议室 1 举办。</span><br><span class="line">- 在时间 2 ，两个会议室都被占用，第三场会议延期举办。</span><br><span class="line">- 在时间 3 ，两个会议室都被占用，第四场会议延期举办。</span><br><span class="line">- 在时间 5 ，会议室 1 的会议结束。第三场会议在会议室 1 举办，时间周期为 [5,10) 。</span><br><span class="line">- 在时间 10 ，两个会议室的会议都结束。第四场会议在会议室 0 举办，时间周期为 [10,11) 。</span><br><span class="line">  会议室 0 和会议室 1 都举办了 2 场会议，所以返回 0 。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">输入：n = 3, meetings = [[1,20],[2,10],[3,5],[4,9],[6,8]]</span><br><span class="line">输出：1</span><br><span class="line">解释：</span><br><span class="line">- 在时间 1 ，所有三个会议室都未占用，第一场会议在会议室 0 举办。</span><br><span class="line">- 在时间 2 ，会议室 1 和 2 未占用，第二场会议在会议室 1 举办。</span><br><span class="line">- 在时间 3 ，只有会议室 2 未占用，第三场会议在会议室 2 举办。</span><br><span class="line">- 在时间 4 ，所有三个会议室都被占用，第四场会议延期举办。</span><br><span class="line">- 在时间 5 ，会议室 2 的会议结束。第四场会议在会议室 2 举办，时间周期为 [5,10) 。</span><br><span class="line">- 在时间 6 ，所有三个会议室都被占用，第五场会议延期举办。</span><br><span class="line">- 在时间 10 ，会议室 1 和 2 的会议结束。第五场会议在会议室 1 举办，时间周期为 [10,12) 。</span><br><span class="line">  会议室 1 和会议室 2 都举办了 2 场会议，所以返回 1 。</span><br></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= n &lt;= 100</code></li>
+<li><code>1 &lt;= meetings.length &lt;= 1e5</code></li>
+<li><code>meetings[i].length == 2</code></li>
+<li><code>0 &lt;= starti &lt; endi &lt;= 5e5</code></li>
+<li><code>starti</code> 的所有值 互不相同</li>
+</ul>
+<h3 id="算法分析-1"><a href="#算法分析-1" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
+<li>这道题用两个堆维护即可，堆中放的元素是<code>room</code>对象</li>
+<li>第一个堆维护的是，会议室可用的时间以及会议室编号，是一个小根堆，排序规则是，可用时间从小到大，可用时间相同的时候，编号从小到大</li>
+<li>第二个堆维护的是，后续把第一个堆中符合某种条件的元素扔进来，按照会议室的编号从小到大即可</li>
+<li>具体算法过程如下：<ul>
+<li>因为分配是根据会议起始时间来的，所以首先按照起始时间对会议进行排序</li>
+<li>将所有的会议室放入第一个堆(<code>roomHeap</code>)中</li>
+<li>以此弹出每一个会议室，表示当前可能分配的会议室</li>
+<li>如果发现最近的可用时间的会议室依然空闲，我们要把所有空闲的会议室都放到<code>freeRoomHeap</code>中，选择一个编号最小的，更新其下次可用的时间以此使用次数，并且把<code>freeRoomHeap</code>中的所有元素倒回</li>
+<li>如果发现没有空闲的，那么我们就选择当前弹出的（因为可用时间点最近，就算下面还有可用时间点一样近的，这一个会议室的编号也是最小的），更新其下次可用的时间以此使用次数</li>
+</ul>
+</li>
+<li>这样做<code>81</code>个点过了<code>80</code>个，匪夷所思</li>
+<li>不过思路肯定是对的</li>
+<li>如果有人发现代码的问题请联系我，不胜感激</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Room</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> useTime, index, count;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Room</span><span class="params">(<span class="type">int</span> useTime, <span class="type">int</span> index)</span> &#123;</span><br><span class="line">        count = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">this</span>.useTime = useTime;</span><br><span class="line">        <span class="built_in">this</span>.index = index;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Meeting</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> s, e;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Meeting</span><span class="params">(<span class="type">int</span> s, <span class="type">int</span> e)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.s = s;</span><br><span class="line">        <span class="built_in">this</span>.e = e;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">RoomCom</span> <span class="keyword">implements</span> <span class="title class_">Comparator</span>&lt;Room&gt; &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(Room o1, Room o2)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> o1.useTime == o2.useTime ? o1.index - o2.index : o1.useTime - o2.useTime;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">FreeRoomCom</span> <span class="keyword">implements</span> <span class="title class_">Comparator</span>&lt;Room&gt; &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(Room o1, Room o2)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> o1.index - o2.index;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">meetingCom</span> <span class="keyword">implements</span> <span class="title class_">Comparator</span>&lt;Meeting&gt; &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(Meeting o1, Meeting o2)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> o1.s == o2.s ? o1.e - o2.e : o1.s - o2.s;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">mostBooked</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span>[][] meetings)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> Integer.MIN_VALUE;</span><br><span class="line">    <span class="type">int</span> <span class="variable">ans</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    PriorityQueue&lt;Room&gt; roomHeap = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;(<span class="keyword">new</span> <span class="title class_">RoomCom</span>());</span><br><span class="line">    PriorityQueue&lt;Room&gt; freeRoomHeap = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;(<span class="keyword">new</span> <span class="title class_">FreeRoomCom</span>());</span><br><span class="line">    Room[] rooms = <span class="keyword">new</span> <span class="title class_">Room</span>[n];</span><br><span class="line">    Meeting[] meetingsArr = <span class="keyword">new</span> <span class="title class_">Meeting</span>[meetings.length];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; meetings.length; i++) &#123;</span><br><span class="line">        meetingsArr[i] = <span class="keyword">new</span> <span class="title class_">Meeting</span>(meetings[i][<span class="number">0</span>], meetings[i][<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    Arrays.sort(meetingsArr, <span class="keyword">new</span> <span class="title class_">meetingCom</span>());</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        rooms[i] = <span class="keyword">new</span> <span class="title class_">Room</span>(<span class="number">0</span>, i);</span><br><span class="line">        roomHeap.add(rooms[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; meetings.length; i++) &#123;</span><br><span class="line">        <span class="type">Room</span> <span class="variable">room</span> <span class="operator">=</span> roomHeap.poll();</span><br><span class="line">        <span class="comment">// 如果会议室空闲</span></span><br><span class="line">        <span class="keyword">if</span> (meetingsArr[i].s &gt;= room.useTime) &#123;</span><br><span class="line">            freeRoomHeap.add(room);</span><br><span class="line">            <span class="keyword">while</span> (!roomHeap.isEmpty() &amp;&amp; roomHeap.peek().useTime &lt;= meetingsArr[i].s) &#123;</span><br><span class="line">                freeRoomHeap.add(roomHeap.poll());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="type">Room</span> <span class="variable">cur</span> <span class="operator">=</span> freeRoomHeap.poll();</span><br><span class="line">            cur.count++;</span><br><span class="line">            cur.useTime = meetingsArr[i].e;</span><br><span class="line">            roomHeap.add(cur);</span><br><span class="line">            <span class="keyword">while</span> (!freeRoomHeap.isEmpty()) &#123;</span><br><span class="line">                roomHeap.add(freeRoomHeap.poll());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;<span class="comment">// 会议室不空闲</span></span><br><span class="line">            room.count++;</span><br><span class="line">            room.useTime = room.useTime + meetingsArr[i].e - meetingsArr[i].s;</span><br><span class="line">            roomHeap.add(room);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (res &lt; rooms[i].count) &#123;</span><br><span class="line">            ans = i;</span><br><span class="line">            res = rooms[i].count;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://xialinrui.github.io">Xia Linrui</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://xialinrui.github.io/2022/09/04/lc%E5%91%A8%E8%B5%9B/lc%E5%91%A8%E8%B5%9B-no309/">https://xialinrui.github.io/2022/09/04/lc%E5%91%A8%E8%B5%9B/lc%E5%91%A8%E8%B5%9B-no309/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://xialinrui.github.io" target="_blank">格 心</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a><a class="post-meta__tags" href="/tags/%E9%80%92%E5%BD%92/">递归</a><a class="post-meta__tags" href="/tags/%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2/">记忆化搜索</a><a class="post-meta__tags" href="/tags/%E4%BB%8E%E5%B7%A6%E5%BE%80%E5%8F%B3%E7%9A%84%E5%B0%9D%E8%AF%95%E6%A8%A1%E5%9E%8B/">从左往右的尝试模型</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E5%AD%A6/">数学</a><a class="post-meta__tags" href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a><a class="post-meta__tags" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/">位运算</a><a class="post-meta__tags" href="/tags/%E5%A0%86/">堆</a><a class="post-meta__tags" href="/tags/%E6%8E%92%E5%BA%8F/">排序</a></div><div class="post_share"><div class="social-share" data-image="/./img/%E7%AE%97%E6%B3%95/lc%E5%91%A8%E8%B5%9B/309.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/09/02/%E4%BD%93%E7%B3%BB/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/"><img class="next-cover" src="/./img/%E7%AE%97%E6%B3%95/%E4%BD%93%E7%B3%BB%E5%AD%A6%E4%B9%A0/%E5%B0%81%E9%9D%A2/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">树状数组</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/06/11/%E4%BB%8E%E9%80%92%E5%BD%92%E5%88%B0%E5%8A%A8%E8%A7%84%E9%A2%98%E7%9B%AE%EF%BC%881%EF%BC%89%E2%80%94%E2%80%94RobotWalk/" title="从递归到动态规划_Problem1"><img class="cover" src="/./img/%E7%AE%97%E6%B3%95/%E4%BD%93%E7%B3%BB%E5%AD%A6%E4%B9%A0/%E5%B0%81%E9%9D%A2/dp/001.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-11</div><div class="title">从递归到动态规划_Problem1</div></div></a></div><div><a href="/2021/06/12/%E4%BB%8E%E9%80%92%E5%BD%92%E5%88%B0%E5%8A%A8%E8%A7%84%E9%A2%98%E7%9B%AE%EF%BC%883%EF%BC%89%E2%80%94%E2%80%94Knapsack/" title="从递归到动态规划_Problem3"><img class="cover" src="/./img/%E7%AE%97%E6%B3%95/%E4%BD%93%E7%B3%BB%E5%AD%A6%E4%B9%A0/%E5%B0%81%E9%9D%A2/dp/003.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-12</div><div class="title">从递归到动态规划_Problem3</div></div></a></div><div><a href="/2021/06/11/%E4%BB%8E%E9%80%92%E5%BD%92%E5%88%B0%E5%8A%A8%E8%A7%84%E9%A2%98%E7%9B%AE%EF%BC%882%EF%BC%89%E2%80%94%E2%80%94CardsInLine/" title="从递归到动态规划_Problem2"><img class="cover" src="/./img/%E7%AE%97%E6%B3%95/%E4%BD%93%E7%B3%BB%E5%AD%A6%E4%B9%A0/%E5%B0%81%E9%9D%A2/dp/002.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-11</div><div class="title">从递归到动态规划_Problem2</div></div></a></div><div><a href="/2021/07/15/%E4%BB%8E%E9%80%92%E5%BD%92%E5%88%B0%E5%8A%A8%E8%A7%84%E9%A2%98%E7%9B%AE%EF%BC%885%EF%BC%89%E2%80%94%E2%80%94StickersToSpellWord/" title="从递归到动态规划_Problem5"><img class="cover" src="/./img/%E7%AE%97%E6%B3%95/%E4%BD%93%E7%B3%BB%E5%AD%A6%E4%B9%A0/%E5%B0%81%E9%9D%A2/dp/005.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-07-15</div><div class="title">从递归到动态规划_Problem5</div></div></a></div><div><a href="/2021/07/13/%E4%BB%8E%E9%80%92%E5%BD%92%E5%88%B0%E5%8A%A8%E8%A7%84%E9%A2%98%E7%9B%AE%EF%BC%884%EF%BC%89%E2%80%94%E2%80%94ConvertToLetterString/" title="从递归到动态规划_Problem4"><img class="cover" src="/./img/%E7%AE%97%E6%B3%95/%E4%BD%93%E7%B3%BB%E5%AD%A6%E4%B9%A0/%E5%B0%81%E9%9D%A2/dp/004.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-07-13</div><div class="title">从递归到动态规划_Problem4</div></div></a></div><div><a href="/2021/06/12/Problem001_TwoSum/" title="LeetCode_001_TwoSum"><img class="cover" src="/./img/%E7%AE%97%E6%B3%95/LeetCode%E5%88%B7%E9%A2%98/%E5%B0%81%E9%9D%A2/001.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-12</div><div class="title">LeetCode_001_TwoSum</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/./img/%E5%A4%B4%E5%83%8F.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Xia Linrui</div><div class="author-info__description">心即理也。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/xialinrui" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:xialinrui@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">近期致力于JavaWeb和算法的学习</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lc%E5%91%A8%E8%B5%9B-no309"><span class="toc-number">1.</span> <span class="toc-text">lc周赛-no309</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%80%83%E7%82%B9"><span class="toc-number">1.1.</span> <span class="toc-text">考点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Problem1-CheckDistancesBetweenSameLetters"><span class="toc-number">1.2.</span> <span class="toc-text">Problem1_CheckDistancesBetweenSameLetters</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.2.1.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%80%9D%E8%B7%AF"><span class="toc-number">1.2.2.</span> <span class="toc-text">算法思路</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Problem2-NumberOfWaysToReachAPositionAfterExactlyKStep"><span class="toc-number">1.3.</span> <span class="toc-text">Problem2_NumberOfWaysToReachAPositionAfterExactlyKStep</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%80%9D%E8%B7%AF-1"><span class="toc-number">1.3.2.</span> <span class="toc-text">算法思路</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Problem3-LongestNiceSubarray"><span class="toc-number">1.4.</span> <span class="toc-text">Problem3_LongestNiceSubarray</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-2"><span class="toc-number">1.4.1.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-number">1.4.2.</span> <span class="toc-text">算法分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Problem4-MeetingRoomsIII"><span class="toc-number">1.5.</span> <span class="toc-text">Problem4_MeetingRoomsIII</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-3"><span class="toc-number">1.5.1.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90-1"><span class="toc-number">1.5.2.</span> <span class="toc-text">算法分析</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/09/04/lc%E5%91%A8%E8%B5%9B/lc%E5%91%A8%E8%B5%9B-no309/" title="lc周赛-no309"><img src="/./img/%E7%AE%97%E6%B3%95/lc%E5%91%A8%E8%B5%9B/309.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lc周赛-no309"/></a><div class="content"><a class="title" href="/2022/09/04/lc%E5%91%A8%E8%B5%9B/lc%E5%91%A8%E8%B5%9B-no309/" title="lc周赛-no309">lc周赛-no309</a><time datetime="2022-09-04T11:14:02.000Z" title="发表于 2022-09-04 19:14:02">2022-09-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/02/%E4%BD%93%E7%B3%BB/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/" title="树状数组"><img src="/./img/%E7%AE%97%E6%B3%95/%E4%BD%93%E7%B3%BB%E5%AD%A6%E4%B9%A0/%E5%B0%81%E9%9D%A2/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="树状数组"/></a><div class="content"><a class="title" href="/2021/09/02/%E4%BD%93%E7%B3%BB/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/" title="树状数组">树状数组</a><time datetime="2021-09-02T07:17:21.000Z" title="发表于 2021-09-02 15:17:21">2021-09-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/18/Problem003/" title="great_offer_003_CountFiles"><img src="/./img/%E7%AE%97%E6%B3%95/%E5%A4%A7%E5%8E%82%E9%9D%A2%E8%AF%95%E9%A2%98/%E5%B0%81%E9%9D%A2/003.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="great_offer_003_CountFiles"/></a><div class="content"><a class="title" href="/2021/08/18/Problem003/" title="great_offer_003_CountFiles">great_offer_003_CountFiles</a><time datetime="2021-08-18T08:14:30.000Z" title="发表于 2021-08-18 16:14:30">2021-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/17/Problem002/" title="great_offer_002_CountFiles"><img src="/./img/%E7%AE%97%E6%B3%95/%E5%A4%A7%E5%8E%82%E9%9D%A2%E8%AF%95%E9%A2%98/%E5%B0%81%E9%9D%A2/002.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="great_offer_002_CountFiles"/></a><div class="content"><a class="title" href="/2021/08/17/Problem002/" title="great_offer_002_CountFiles">great_offer_002_CountFiles</a><time datetime="2021-08-17T05:54:45.000Z" title="发表于 2021-08-17 13:54:45">2021-08-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/16/Problem001/" title="great_offer_001_CordCoverMaxPoint"><img src="/./img/%E7%AE%97%E6%B3%95/%E5%A4%A7%E5%8E%82%E9%9D%A2%E8%AF%95%E9%A2%98/%E5%B0%81%E9%9D%A2/001.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="great_offer_001_CordCoverMaxPoint"/></a><div class="content"><a class="title" href="/2021/08/16/Problem001/" title="great_offer_001_CordCoverMaxPoint">great_offer_001_CordCoverMaxPoint</a><time datetime="2021-08-15T22:30:45.000Z" title="发表于 2021-08-16 06:30:45">2021-08-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Xia Linrui</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
